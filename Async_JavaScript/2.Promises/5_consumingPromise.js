@@ -1,0 +1,56 @@
+// Tracing of below code is done in Feb-23 notes pageNo -> 5
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+function createPromiseWithTimeout() {
+  return new Promise(function executor(resolve, reject) {
+    console.log("Entering the executor callback in the promise constructor");
+    setTimeout(function () {
+      let num = getRandomInt(10);
+      if (num % 2 == 0) {
+        // if the random number is even we fullfill
+        resolve(num);
+      } else {
+        // if the random number is odd we reject
+        reject(num);
+      }
+    }, 8000);
+    console.log("Exitting the executor callback in the promise constructor");
+  });
+}
+
+console.log("Starting....");
+const p = createPromiseWithTimeout();
+console.log("We are now waiting for the promise to complete");
+console.log("Currently my promise object is like ... ", p);
+
+p.then(
+  function fulfillHandler(value) {
+    console.log("Inside fulfill handler with value", value);
+    console.log("Promise after fullfillment is", p);
+  },
+  function rejectionHandler(value) {
+    console.log("Inside rejection handler with value", value);
+    console.log("Promise after rejection is", p);
+  }
+);
+
+/*
+    Promise object have 4 properties - 1. State (state is 'Pending' ByDefault)
+                                       2. Value (value is 'undefined' ByDefault)
+                                       3. onFullfillment: [ ] (array is empty byDefault)
+                                       4. onRejection: [ ]    (array is empty byDefault)
+    
+    p.then() just registers the functions i.e fulfillHandler & rejectionHandler to the onFullfillment
+    and onRejection array respectively. Note that p.then() does't execute fulfillHandler & rejectionHandler
+    it only registers them inside those array present in promise object.
+
+    These functions (fulfillHandler & rejectionHandler) are executed only when the state of promise obj changes.
+    For eg: if state changes from 'pending' to 'fullfilled' the functions present inside onFullfillment:[ ] array 
+    will be executed one by one.
+
+    MicoTask queue is responsible for execution of functions present inside these arrays (eg: onFullfillment:[ ] array)
+
+  */
