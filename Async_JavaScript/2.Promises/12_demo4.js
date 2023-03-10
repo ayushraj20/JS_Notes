@@ -10,19 +10,19 @@ setTimeout(function timer1() {
   console.log("Timer 1 done");
 }, 0);
 blocking_for_loop();
-let x = Promise.resolve("Sanket's promise1");
+let x = Promise.resolve("Ayush's promise1");
 x.then(function processPromise(value) {
   console.log("Whose promise ? ", value);
   blocking_for_loop();
 });
-let y = Promise.resolve("Sanket's promise2");
+let y = Promise.resolve("Ayush's promise2");
 y.then(function processPromise(value) {
   console.log("Whose promise ? ", value);
   setTimeout(function () {
     console.log("ok done");
   }, 0);
 });
-let z = Promise.resolve("Sanket's promise3");
+let z = Promise.resolve("Ayush's promise3");
 z.then(function processPromise(value) {
   console.log("Whose promise ? ", value);
 });
