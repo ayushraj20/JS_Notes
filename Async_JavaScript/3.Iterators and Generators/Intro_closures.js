@@ -1,7 +1,7 @@
 function process() {
   let i = 0;
   function innerProcess() {
-    i += 1; // i = 0
+    i += 1;
     return i;
   }
   return innerProcess; // we are not calling the function, we are just returning it.
