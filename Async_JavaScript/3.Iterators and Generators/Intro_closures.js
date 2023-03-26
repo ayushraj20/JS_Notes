@@ -14,3 +14,12 @@ console.log(res);
 console.log("first time calling res", res());
 console.log("second time calling res", res());
 console.log("third time calling res", res());
+
+/*
+To actually understand the working of 'Async Await' below concepts must be clear -
+1. Promises.
+2. Closures.
+3. Iterators.
+4. Generators.
+
+*/
