@@ -4,15 +4,22 @@ const p = new Promise((resolve, reject) => {
   }, 5000); // 5 sec timer
 });
 
-// Handling Promise using await .
 async function getData() {
   console.log('Starting...');
 
   const result = await p;
   console.log(result);
   console.log('Ending');
+
+  const result2 = await p;
+  console.log(result2);
+  console.log('Ending again');
 }
 
 getData();
 
-// *prev eg(03-AsyncAwait.js) is also same as this, just that we are handling promise in different ways.
+/**
+ * await waits for the promise to get resolved at line-10 but once it is resolved.
+ * It does't wait again at line-14.
+ *
+ */

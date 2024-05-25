@@ -1,5 +1,3 @@
-console.log('Starting...');
-
 const p = new Promise((resolve, reject) => {
   setTimeout(() => {
     resolve('Promise resolved value!!');
@@ -8,6 +6,7 @@ const p = new Promise((resolve, reject) => {
 
 // Handling Promise using .then() .
 async function getData() {
+  console.log('Starting...');
   p.then((res) => console.log(res));
   console.log('Ending');
 }
