@@ -19,7 +19,7 @@ async function getData() {
 getData();
 
 /**
- * await waits for the promise to get resolved at line-10 but once it is resolved.
+ * await waits for the promise 'p' to get resolved at line-10 but once the promise 'p' is resolved.
  * It does't wait again at line-14.
  *
  */
