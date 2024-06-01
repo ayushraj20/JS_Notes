@@ -1,6 +1,6 @@
-console.log("hi");
-console.lo("hello");
-console.log("bye");
+console.log('hi');
+console.lo('hello');
+console.log('bye');
 
 console.log((10).toString()); // https://stackoverflow.com/questions/13149282/why-does-10-tostring-work-but-10-tostring-does-not (go to this link for expl)
 

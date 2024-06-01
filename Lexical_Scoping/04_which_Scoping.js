@@ -1,5 +1,5 @@
-var teacher = "Sanket";
-n; // -> global
+var teacher = 'Sanket';
+
 function ask(question) {
   // -> global
   console.log(teacher, question);
@@ -7,7 +7,7 @@ function ask(question) {
 
 function fun() {
   //-> global
-  var teacher = "Pulkit"; // -> fun
-  ask("why?");
+  var teacher = 'Pulkit'; // -> fun
+  ask('why?');
 }
 fun();
