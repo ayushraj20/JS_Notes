@@ -8,15 +8,15 @@ let name2 = {
   lastName: 'Tendulkar',
 };
 
-let details = function (hometown, state) {
+let printDetails = function (hometown, state) {
   console.log(this.firstName, this.lastName, 'from', hometown, ',', state);
 };
 
 // call() & apply() --> function borrowing
-details.call(name, 'Aurangabad', 'Bihar');
-details.apply(name2, ['Mumbai', 'Maharashtra']); //In apply(), we pass arguments as list of array
+printDetails.call(name, 'Aurangabad', 'Bihar');
+printDetails.apply(name2, ['Mumbai', 'Maharashtra']); //In apply(), we pass arguments as list of array
 
 // bind() method returns a new function, unlike call() & apply() which calls the function.
-let myDetails = details.bind(name, 'Aurangabad', 'Bihar');
+let myDetails = printDetails.bind(name, 'Aurangabad', 'Bihar');
 console.log('myDetails ->', myDetails);
 myDetails();
