@@ -1,6 +1,4 @@
-/*
-Currying in JS, Currying uses concept of closures.
-*/
+// Currying in JS, Currying uses concept of closures.
 
 function sum(a) {
   return function (b) {
