@@ -1,6 +1,5 @@
-// 'this' in global space
-
 /*
+'this' in global space ->
 'this' keyword in global space refers to globalObject i.e, it will refer to windowObject in case of browsers.
 */
 console.log(this);

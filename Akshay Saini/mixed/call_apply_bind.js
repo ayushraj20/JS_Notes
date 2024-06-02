@@ -12,9 +12,9 @@ let printDetails = function (hometown, state) {
   console.log(this.firstName, this.lastName, 'from', hometown, ',', state);
 };
 
-// call() & apply() --> function borrowing
+// call() & apply() --> function borrowing.
 printDetails.call(name, 'Aurangabad', 'Bihar');
-printDetails.apply(name2, ['Mumbai', 'Maharashtra']); //In apply(), we pass arguments as list of array
+printDetails.apply(name2, ['Mumbai', 'Maharashtra']); //In apply(), we pass list of arguments as an array.
 
 // bind() method returns a new function, unlike call() & apply() which calls the function.
 let myDetails = printDetails.bind(name, 'Aurangabad', 'Bihar');
