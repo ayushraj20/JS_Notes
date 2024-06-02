@@ -22,3 +22,10 @@ function y() {
 
 // x();
 // y();
+
+/*
+when loop is initialized using 'let' and since 'let' has block scope it will create new 'let' variable
+after every iteration of the loop and since 'var' does'nt know about block scope it does't create new variable
+after every iteration rather it points to the same memory location created by 'var' and updates that after every
+iteration.
+*/
