@@ -1,4 +1,4 @@
-// call & apply method example -------------------------------
+// !call & apply method example -------------------------------
 let person1 = {
   name: 'Ayush',
 };
@@ -17,7 +17,7 @@ printAge.call(person2, 22); // Aryan is 22 years old
 //In case of apply() arguments are passed as an array like below
 printAge.apply(person2, [60]); // Aryan is 60 years old
 
-// polyfill for call() --------------------------------
+// !polyfill for call() --------------------------------
 Function.prototype.myCall = function (obj, ...args) {
   console.log('this', this);
 
@@ -35,7 +35,7 @@ Function.prototype.myCall = function (obj, ...args) {
 
 printAge.myCall(person1, 18); // Ayush is 18 years old
 
-// polyfill for apply() --------------------------------
+// !polyfill for apply() --------------------------------
 Function.prototype.myApply = function (obj, ...args) {
   console.log('this', this);
 
