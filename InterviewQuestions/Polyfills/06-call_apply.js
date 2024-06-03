@@ -37,8 +37,6 @@ printAge.myCall(person1, 18); // Ayush is 18 years old
 
 // !polyfill for apply() --------------------------------
 Function.prototype.myApply = function (obj, ...args) {
-  console.log('this', this);
-
   if (typeof this !== 'function') {
     throw new Error('not callable');
   }
