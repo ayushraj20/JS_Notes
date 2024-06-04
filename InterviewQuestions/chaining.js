@@ -1,4 +1,4 @@
-// Implement below code
+// Implement logic for -> calc.add(10).multiply(5).subtract(30).add(10);
 
 const calc = {
   total: 0,
