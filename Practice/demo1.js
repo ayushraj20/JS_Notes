@@ -1,15 +1,31 @@
-let a = {
-  name: 'test',
-  add: {
-    code: 1,
-  },
+const p1 = Promise.resolve('p1 resolved');
+
+const p2 = Promise.resolve('p2 resolved');
+
+Promise.all([p1, p2])
+  .then((res) => console.log(res))
+  .catch((error) => console.log(error));
+
+Promise.myAll = function (promiseArr) {
+  let resArr = [];
+  let counter = 0;
+  return new Promise((resolve, reject) => {
+    promiseArr.forEach((promise, index) => {
+      promise
+        .then((res) => {
+          resArr[index] = res;
+          counter++;
+          if (counter === promiseArr.length) {
+            resolve(resArr);
+          }
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  });
 };
 
-let b = { ...a };
-
-b.add.code = 2;
-
-console.log(a.add.code);
-console.log(b.add.code);
-
-// Spread operator makes shallow copy in the memory
+Promise.myAll([p1, p2])
+  .then((res) => console.log(res))
+  .catch((error) => console.log(error));
