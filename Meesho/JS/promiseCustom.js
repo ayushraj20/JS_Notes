@@ -1,4 +1,5 @@
-// var , let , const
+// write a custom promise.all() such that it returns as soon as maximum of promises are resolved in promise array,
+// (suppose there are 5 promises, it should return as soon as 3 of them get resolved)
 
 let p1 = new Promise((resolve, reject) => {
   setTimeout(() => {
@@ -26,8 +27,8 @@ Promise.myCustomAll = function (promiseArr) {
       console.log(promise);
       promise.then((res) => {
         resultArray.push(res);
-
         counter++;
+
         if (counter > promiseArr.length / 2) {
           resolve(resultArray);
         }
