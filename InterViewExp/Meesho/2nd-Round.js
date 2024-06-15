@@ -21,6 +21,8 @@ App
   10 faqs on page 1 
   pagination
   
+  Throttling
+  Debouncing
 
   getAPi-> 50 most asked FAQ
 
