@@ -55,5 +55,5 @@ p.then(
 
 console.log('Ending......');
 setTimeout(function () {
-  console.log('Global timer of 0s');
+  console.log('Global timer of 1s');
 }, 1000);
