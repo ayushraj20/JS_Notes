@@ -6,11 +6,12 @@ function fun() {
   }
   console.log(x);
 }
+
 fun();
 
-/**
- * At Line-7 ideally variable "x" should'nt be accessible because it is declared
- * inside "Block scope" of "While", but it is accessible coz "var" does'nt care
- * about block scope.
- *
- */
+/*
+  At Line-7 ideally variable "x" should'nt be accessible because it is declared
+  inside "Block scope" of "While", but it is accessible coz "var" does'nt care
+  about block scope.
+  
+*/
