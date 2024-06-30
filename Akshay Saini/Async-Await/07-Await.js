@@ -24,4 +24,4 @@ async function getData() {
 
 getData();
 
-// For Explanation watch akshay Saini video -> https://youtu.be/6nv3qy3oNkc?si=YGXMah6fYFZJWlvT
+// For Explanation watch Akshay Saini video -> https://youtu.be/6nv3qy3oNkc?si=YGXMah6fYFZJWlvT
