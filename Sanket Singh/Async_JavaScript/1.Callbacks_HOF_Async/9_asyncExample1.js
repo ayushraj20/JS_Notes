@@ -11,7 +11,7 @@ console.log('End');
 /*
   Que -> Since 'console.log()' is also not a native part of JS then Why does it works like sync piece of code ??
 
-  Ans -> https://nodejs.org/api/process.html# processstdout
+  Ans -> https://nodejs.org/api/process.html# process_stdout
          Note- Read the first line of Warning in the link.
 
 */
