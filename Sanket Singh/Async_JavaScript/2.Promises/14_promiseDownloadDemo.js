@@ -1,18 +1,18 @@
 function download(url) {
-  console.log("started downloading content form ", url);
+  console.log('started downloading content form ', url);
   return new Promise(function exec(res, rej) {
     setTimeout(function p() {
-      console.log("COmpelted downloading data in 5s");
-      const content = "ABCDEF";
+      console.log('Completed downloading data in 5s');
+      const content = 'ABCDEF';
       res(content);
     }, 5000);
   });
 }
 
-x = download("www.xyz.com");
+x = download('www.xyz.com');
 
 x.then(function fulfillHandler1(value) {
-  console.log("Content downloaded is1", value);
+  console.log('Content downloaded is1', value);
 });
 
 /*
