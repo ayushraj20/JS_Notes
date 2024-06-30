@@ -1,6 +1,6 @@
 // 'this' inside a function
 
-// 'use strict';
+'use strict';
 function fun() {
   console.log(this);
 }
