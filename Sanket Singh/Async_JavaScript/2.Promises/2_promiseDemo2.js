@@ -29,6 +29,6 @@ console.log('end !!!');
      The Creation of promise is sync in nature. but in above eg the setTimeout is 
      async in nature so promise object will remain in 'pending' state (default state)
      coz' the function 'timerA' will not execute until callStack is empty and the there 
-     is no global piece of code left, only then after 'timerA' will execute and out promise
+     is no global piece of code left, only then after 'timerA' will execute and our promise
      will be resolved or rejected based on the random number.
   */
