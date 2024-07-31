@@ -20,5 +20,5 @@ doTask(function exec(num) {
 /* Summary --
    In this case TeamA has implemented the function doTask and TeamB has implemented function exec.
    but TeamB is giving their's function (exec) control to TeamA (doTask) on when should be exec called
-   or how many times it should be called or it should be called at all or not , this is called Inversion of Control.
+   or how many times it should be called or it should be called at all or not, this is called Inversion of Control.
  */
