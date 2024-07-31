@@ -11,7 +11,7 @@
  3. What would happen to redux values if you reload the page, How will you manage cart functionality,
     If it is not a SPA (Single Page Application) ?
 
- 4. What is 'useIntersectionObserver' and its uses ? // Throttling/InfiniteScroll
+ 4. What is 'IntersectionObserver' and its uses ? // Throttling/InfiniteScroll
 
 
 */
