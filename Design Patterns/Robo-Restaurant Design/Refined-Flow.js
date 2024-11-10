@@ -1,18 +1,29 @@
-// Menu class
-class Menu {
+// MenuItemFactory - Factory for creating menu items
+class MenuItemFactory {
+  static createMenuItem(id, name, price) {
+    return new MenuItem(id, name, price);
+  }
+}
+
+// MenuItem Class - Represents an item on the menu
+class MenuItem {
   constructor(id, name, price) {
     this.id = id;
     this.name = name;
     this.price = price;
   }
+
+  getDescription() {
+    return `${this.name} - $${this.price}`;
+  }
 }
 
-// Order Class
+// Order Class - Represents an order made by a customer
 class Order {
   constructor(orderId, items) {
     this.orderId = orderId;
-    this.itemsList = items; // List of MenuItem instances
-    this.status = 'Pending'; // Status can be '|Pending |In-Kitchen |Ready |Delivered'
+    this.itemsList = items;
+    this.status = 'Pending';
   }
 
   updateStatus(newStatus) {
@@ -24,7 +35,14 @@ class Order {
   }
 }
 
-// Customer Class - Encapsulates customer interactions and history
+// CustomerFactory - Factory for creating customers
+class CustomerFactory {
+  static createCustomer(id, tableNumber) {
+    return new Customer(id, tableNumber);
+  }
+}
+
+// Customer Class - Represents a restaurant customer
 class Customer {
   constructor(id, tableNumber) {
     this.id = id;
@@ -33,7 +51,7 @@ class Customer {
   }
 
   placeOrder(items) {
-    const order = new Order(Date.now(), items); // Unique order ID based on timestamp
+    const order = new Order(Date.now(), items);
     this.orderHistory.push(order);
     return order;
   }
@@ -44,7 +62,48 @@ class Customer {
   }
 }
 
-// Waiter Interface - Abstract class for common waiter functionality
+// Singleton Scheduler - Manages task scheduling for robot waiters
+class Scheduler {
+  static #instance; // Private static instance variable
+
+  #taskQueue = []; // Private task queue
+
+  constructor() {
+    if (Scheduler.#instance) {
+      throw new Error(
+        'Scheduler is a singleton and cannot be instantiated more than once.'
+      );
+    }
+  }
+
+  static getInstance() {
+    if (!Scheduler.#instance) {
+      Scheduler.#instance = new Scheduler();
+    }
+    return Scheduler.#instance;
+  }
+
+  assignTask(robotWaiters, task) {
+    const availableWaiter = robotWaiters.find((waiter) => waiter.isAvailable);
+    if (availableWaiter) {
+      availableWaiter.assignTask(task);
+    } else {
+      console.log(`Task added to queue: ${task.type}`);
+      this.#taskQueue.push(task);
+    }
+  }
+
+  processTaskQueue(robotWaiters) {
+    robotWaiters.forEach((waiter) => {
+      if (waiter.isAvailable && this.#taskQueue.length > 0) {
+        const nextTask = this.#taskQueue.shift();
+        waiter.assignTask(nextTask);
+      }
+    });
+  }
+}
+
+// Waiter Interface - Base class for waiter types
 class Waiter {
   constructor(id) {
     if (new.target === Waiter) {
@@ -73,7 +132,6 @@ class RobotWaiter extends Waiter {
     super(id);
   }
 
-  // Overridden method to handle a specific task type
   assignTask(task) {
     super.assignTask(task);
     console.log(`RobotWaiter ${this.id} is handling task: ${task.type}`);
@@ -85,14 +143,12 @@ class RobotWaiter extends Waiter {
     this.completeTask();
   }
 
-  // Delivers an order
   deliverOrder(order) {
     console.log(
       `RobotWaiter ${this.id} is delivering Order ${order.orderId} to table.`
     );
   }
 
-  // Delivers water to a table
   deliverWater(tableNumber) {
     console.log(
       `RobotWaiter ${this.id} is delivering water to table ${tableNumber}.`
@@ -100,35 +156,18 @@ class RobotWaiter extends Waiter {
   }
 }
 
-// Scheduler Class - Manages task allocation for robot waiters
-class Scheduler {
-  constructor() {
-    this.taskQueue = [];
-  }
+// RobotFactory - Factory for creating RobotWaiters
+class RobotFactory {
+  static robotId = 1;
 
-  // Add a task to the queue if no waiter is available
-  assignTask(robotWaiters, task) {
-    const availableWaiter = robotWaiters.find((waiter) => waiter.isAvailable);
-    if (availableWaiter) {
-      availableWaiter.assignTask(task);
-    } else {
-      console.log(`Task added to queue: ${task.type}`);
-      this.taskQueue.push(task);
-    }
-  }
-
-  // Processes queued tasks when waiters become available
-  processTaskQueue(robotWaiters) {
-    robotWaiters.forEach((waiter) => {
-      if (waiter.isAvailable && this.taskQueue.length > 0) {
-        const nextTask = this.taskQueue.shift();
-        waiter.assignTask(nextTask);
-      }
-    });
+  static createRobotWaiter() {
+    const robot = new RobotWaiter(RobotFactory.robotId++);
+    console.log(`RobotWaiter ${robot.id} created.`);
+    return robot;
   }
 }
 
-// Kitchen Module - Interfaces with the third-party kitchen
+// Kitchen - Represents third-party kitchen interface
 class Kitchen {
   static makeOrder(order) {
     console.log(`Order ${order.orderId} sent to kitchen.`);
@@ -136,7 +175,6 @@ class Kitchen {
   }
 
   static isOrderReady(order) {
-    // Placeholder for checking order readiness (simulated as always ready for simplicity)
     return order.status === 'Ready for Delivery';
   }
 
@@ -147,59 +185,83 @@ class Kitchen {
   }
 }
 
-// Restaurant Class - Main controller for coordinating the restaurant's operations
+// Singleton Restaurant Class - Manages restaurant operations
 class Restaurant {
+  static #instance; // Private static instance variable
+
+  #scheduler;
+  #robotWaiters;
+  #customers;
+  #activeOrders;
+
   constructor() {
-    this.scheduler = new Scheduler();
-    this.robotWaiters = [new RobotWaiter(1), new RobotWaiter(2)];
-    this.customers = [];
-    this.activeOrders = [];
+    if (Restaurant.#instance) {
+      throw new Error(
+        'Restaurant is a singleton and cannot be instantiated more than once.'
+      );
+    }
+
+    this.#scheduler = Scheduler.getInstance(); // Singleton Scheduler
+    this.#robotWaiters = [
+      RobotFactory.createRobotWaiter(),
+      RobotFactory.createRobotWaiter(),
+    ];
+    this.#customers = [];
+    this.#activeOrders = [];
   }
 
-  // Adds a new customer
+  static getInstance() {
+    if (!Restaurant.#instance) {
+      Restaurant.#instance = new Restaurant();
+    }
+    return Restaurant.#instance;
+  }
+
   addCustomer(customer) {
-    this.customers.push(customer);
+    this.#customers.push(customer);
   }
 
-  // Manages an order placed by a customer
   manageOrder(customer, items) {
     const order = customer.placeOrder(items);
-    this.activeOrders.push(order);
+    this.#activeOrders.push(order);
     Kitchen.makeOrder(order);
   }
 
-  // Checks the status of orders in the kitchen and assigns waiters if ready
   checkKitchenStatus() {
-    this.activeOrders.forEach((order) => {
+    this.#activeOrders.forEach((order) => {
       if (Kitchen.isOrderReady(order)) {
         Kitchen.getOrder(order);
         const deliveryTask = { type: 'delivery', order: order };
-        this.scheduler.assignTask(this.robotWaiters, deliveryTask);
+        this.#scheduler.assignTask(this.#robotWaiters, deliveryTask);
       }
     });
-    this.scheduler.processTaskQueue(this.robotWaiters);
+    this.#scheduler.processTaskQueue(this.#robotWaiters);
   }
 
-  // Handles additional customer requests (e.g., water)
   handleRequest(customer, item) {
     const requestTask = customer.requestItem(item);
-    this.scheduler.assignTask(this.robotWaiters, requestTask);
+    this.#scheduler.assignTask(this.#robotWaiters, requestTask);
   }
 }
 
 // Example Usage
-const restaurant = new Restaurant();
-const customer1 = new Customer(1, 5);
-const customer2 = new Customer(2, 6);
+const restaurant = Restaurant.getInstance();
+const customer1 = CustomerFactory.createCustomer(1, 5);
+const customer2 = CustomerFactory.createCustomer(2, 6);
 
 // Add customers to restaurant
 restaurant.addCustomer(customer1);
 restaurant.addCustomer(customer2);
 
 // Customer places orders
-const items = [new MenuItem(1, 'Pasta', 12.99), new MenuItem(2, 'Salad', 6.99)];
+const items = [
+  MenuItemFactory.createMenuItem(1, 'Pasta', 12.99),
+  MenuItemFactory.createMenuItem(2, 'Salad', 6.99),
+];
 restaurant.manageOrder(customer1, items);
-restaurant.manageOrder(customer2, [new MenuItem(3, 'Pizza', 9.99)]);
+restaurant.manageOrder(customer2, [
+  MenuItemFactory.createMenuItem(3, 'Pizza', 9.99),
+]);
 
 // Process kitchen orders
 restaurant.checkKitchenStatus();
@@ -208,5 +270,5 @@ restaurant.checkKitchenStatus();
 restaurant.handleRequest(customer1, 'water');
 restaurant.handleRequest(customer2, 'water');
 
-// Check for any remaining queued tasks
+// Check for remaining queued tasks
 restaurant.checkKitchenStatus();
