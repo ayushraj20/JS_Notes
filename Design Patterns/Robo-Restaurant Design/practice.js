@@ -108,3 +108,5 @@ class Restaurant {
 
   manageOrders() {}
 }
+
+//allot table, isOrderReadyINKitchen, assignTable
