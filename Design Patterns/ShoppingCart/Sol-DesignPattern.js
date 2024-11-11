@@ -54,6 +54,7 @@ class FixedNthCoupon extends Coupon {
 
 // Singleton Cart class
 class Cart {
+  static instance;
   constructor() {
     if (Cart.instance) {
       return Cart.instance;
