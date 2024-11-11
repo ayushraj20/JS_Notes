@@ -1,11 +1,9 @@
-// MenuItemFactory - Factory for creating menu items
 class MenuItemFactory {
   static createMenuItem(id, name, price) {
     return new MenuItem(id, name, price);
   }
 }
 
-// MenuItem Class - Represents an item on the menu
 class MenuItem {
   constructor(id, name, price) {
     this.id = id;
@@ -18,7 +16,6 @@ class MenuItem {
   }
 }
 
-// Order Class - Represents an order made by a customer
 class Order {
   constructor(orderId, items) {
     this.orderId = orderId;
@@ -35,14 +32,12 @@ class Order {
   }
 }
 
-// CustomerFactory - Factory for creating customers
 class CustomerFactory {
   static createCustomer(id, tableNumber) {
     return new Customer(id, tableNumber);
   }
 }
 
-// Customer Class - Represents a restaurant customer
 class Customer {
   constructor(id, tableNumber) {
     this.id = id;
@@ -62,18 +57,11 @@ class Customer {
   }
 }
 
-// Singleton Scheduler - Manages task scheduling for robot waiters
 class Scheduler {
-  static #instance; // Private static instance variable
-
-  #taskQueue = []; // Private task queue
+  static #instance;
 
   constructor() {
-    if (Scheduler.#instance) {
-      throw new Error(
-        'Scheduler is a singleton and cannot be instantiated more than once.'
-      );
-    }
+    this.taskQueue = [];
   }
 
   static getInstance() {
@@ -89,21 +77,20 @@ class Scheduler {
       availableWaiter.assignTask(task);
     } else {
       console.log(`Task added to queue: ${task.type}`);
-      this.#taskQueue.push(task);
+      this.taskQueue.push(task);
     }
   }
 
   processTaskQueue(robotWaiters) {
     robotWaiters.forEach((waiter) => {
-      if (waiter.isAvailable && this.#taskQueue.length > 0) {
-        const nextTask = this.#taskQueue.shift();
+      if (waiter.isAvailable && this.taskQueue.length > 0) {
+        const nextTask = this.taskQueue.shift();
         waiter.assignTask(nextTask);
       }
     });
   }
 }
 
-// Waiter Interface - Base class for waiter types
 class Waiter {
   constructor(id) {
     if (new.target === Waiter) {
@@ -126,7 +113,6 @@ class Waiter {
   }
 }
 
-// RobotWaiter Class - Inherits from Waiter
 class RobotWaiter extends Waiter {
   constructor(id) {
     super(id);
@@ -156,7 +142,6 @@ class RobotWaiter extends Waiter {
   }
 }
 
-// RobotFactory - Factory for creating RobotWaiters
 class RobotFactory {
   static robotId = 1;
 
@@ -167,7 +152,6 @@ class RobotFactory {
   }
 }
 
-// Kitchen - Represents third-party kitchen interface
 class Kitchen {
   static makeOrder(order) {
     console.log(`Order ${order.orderId} sent to kitchen.`);
@@ -185,9 +169,8 @@ class Kitchen {
   }
 }
 
-// Singleton Restaurant Class - Manages restaurant operations
 class Restaurant {
-  static #instance; // Private static instance variable
+  static #instance;
 
   #scheduler;
   #robotWaiters;
@@ -201,7 +184,7 @@ class Restaurant {
       );
     }
 
-    this.#scheduler = Scheduler.getInstance(); // Singleton Scheduler
+    this.#scheduler = Scheduler.getInstance();
     this.#robotWaiters = [
       RobotFactory.createRobotWaiter(),
       RobotFactory.createRobotWaiter(),
