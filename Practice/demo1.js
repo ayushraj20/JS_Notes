@@ -1,31 +1,30 @@
-const p1 = Promise.resolve('p1 resolved');
+function isAnagram(s, t) {
+  if (s.length !== t.length) return false;
 
-const p2 = Promise.resolve('p2 resolved');
+  const counter = new Map();
 
-Promise.all([p1, p2])
-  .then((res) => console.log(res))
-  .catch((error) => console.log(error));
+  for (let char of s) {
+    counter.set(char, (counter.get(char) || 0) + 1);
+  }
 
-Promise.myAll = function (promiseArr) {
-  let resArr = [];
-  let counter = 0;
-  return new Promise((resolve, reject) => {
-    promiseArr.forEach((promise, index) => {
-      promise
-        .then((res) => {
-          resArr[index] = res;
-          counter++;
-          if (counter === promiseArr.length) {
-            resolve(resArr);
-          }
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    });
-  });
-};
+  // for (let [key, value] of counter) {
+  //   console.log(key, ',', value);
+  // }
 
-Promise.myAll([p1, p2])
-  .then((res) => console.log(res))
-  .catch((error) => console.log(error));
+  console.log(counter);
+
+  for (let char of t) {
+    if (!counter.has(char) || counter.get(char) === 0) {
+      return false;
+    }
+
+    counter.set(char, counter.get(char) - 1);
+  }
+
+  console.log(counter);
+
+  return true;
+}
+
+const res = isAnagram('anagram', 'nagaram');
+console.log(res);
