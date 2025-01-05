@@ -1,7 +1,7 @@
 /*
 There is React machine coding question,
-I have a circle in UI with Radius 200px onclick that circle 2 more circles with
-half the radius of original circle appears and original circle disappears
+I have a circle in UI with Radius (for eg-200px) onclick that circle 2 more circles with
+half the radius of original circle (100px) appears and original circle disappears
 and it continues...
 */
 
