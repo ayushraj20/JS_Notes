@@ -44,7 +44,10 @@
 
 ---
 
-### Binary Search on unsorted array `Binary Search on Answer` -
+### Binary Search on unsorted array & Binary Search on Answer -
+
+- Note: In case of Binary Search on Answer, we know the range of our answer, In other words, we know the range in which our answer lies.
+  for example, if our answer is `2`, then we know that our answer lies in the range of `[1, 3]`.
 
 #### 12. Peak Element - [Link 🔗](https://leetcode.com/problems/find-peak-element/description/)
 
@@ -52,8 +55,12 @@
 
 #### 14. Search an elem in Bitonic Array - [YT Link 🔗](https://www.youtube.com/watch?v=IjaP8qt1IYI&list=PL_z_8CaSLPWeYfhtuKHj-9MpYb6XQJ_f2&index=19&ab_channel=AdityaVerma)
 
+#### 15. Koko Eating Bananas - [Link 🔗](https://leetcode.com/problems/koko-eating-bananas/description/) (we know the range in which our answer lies)
+
+#### 16. Sqrt of a Number - [Link 🔗](https://leetcode.com/problems/sqrtx/description/) (we know the range in which our answer lies)
+
 ---
 
-#### 15. Search in a Row wise and Column wise Sorted Matrix - [Link 🔗](https://leetcode.com/problems/search-a-2d-matrix/description/)
+#### \* Search in a Row wise and Column wise Sorted Matrix - [Link 🔗](https://leetcode.com/problems/search-a-2d-matrix/description/)
 
-#### 16.Allocate Minimum Pages - [Link 🔗](https://www.geeksforgeeks.org/problems/allocate-minimum-number-of-pages0937/1)
+#### \* Allocate Minimum Pages - [Link 🔗](https://www.geeksforgeeks.org/problems/allocate-minimum-number-of-pages0937/1)
